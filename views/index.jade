@@ -1,0 +1,69 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  h1 Hello
+  ul#hello
+  h1 SocketIO
+  ul#socketio
+
+  script.
+    var appendMessage = function(parentElementID, message){
+      var parentElement = document.getElementById(parentElementID)
+      var childElement = document.createElement("li")
+      childElement.innerHTML = message;
+      parentElement.appendChild(childElement);
+    }
+
+    var iosocket = io.connect("http://localhost:8081");
+    var message1 = "websocket";
+    var message2 = "socketio";
+
+    appendMessage("socketio", "connecting");
+    iosocket.on('connect', function () {
+      appendMessage("socketio", "connected")
+      appendMessage("socketio", "sending message -> "+message1);
+      iosocket.emit("message", message1);
+    });
+
+    iosocket.on('message', function(message) {
+      var s = "Received --> "+message;
+      appendMessage("socketio", s);
+    });
+
+    iosocket.on('disconnect', function() {
+      appendMessage("socketio", "disconnected / closed");
+    });
+
+
+    var connection = new WebSocket('ws://localhost:8080/hello', ['soap', 'xmpp']);
+    appendMessage("hello", "connecting");
+    connection.onopen = function () {
+      appendMessage("hello", "connected");
+      appendMessage("hello", "sending message -> "+message1);
+      connection.send(message1);
+    };
+
+    // Log errors
+    connection.onerror = function (error) {
+      appendMessage("hello", 'WebSocket Error ' + error);
+    };
+
+    // Log messages from the server
+    connection.onmessage = function (e) {
+      appendMessage("hello", "Received --> "+e.data);
+    };
+
+    connection.onclose = function(){
+      appendMessage("hello", "closed");
+    };
+
+    setTimeout(function(){
+      appendMessage("hello", "closing");
+      connection.close();
+    }, 10000);
+    setTimeout(function(){
+      appendMessage("socketio", "closing");
+      iosocket.close();
+    }, 10000);
