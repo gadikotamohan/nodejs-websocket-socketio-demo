@@ -16,7 +16,7 @@ block content
       parentElement.appendChild(childElement);
     }
 
-    var iosocket = io.connect("http://localhost:8081");
+    var iosocket = io.connect("http://0.0.0.0:8081");
     var message1 = "websocket";
     var message2 = "socketio";
 
@@ -37,7 +37,7 @@ block content
     });
 
 
-    var connection = new WebSocket('ws://localhost:8080/hello', ['soap', 'xmpp']);
+    var connection = new WebSocket('ws://0.0.0.0:8080/hello', ['soap', 'xmpp']);
     appendMessage("hello", "connecting");
     connection.onopen = function () {
       appendMessage("hello", "connected");
