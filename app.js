@@ -64,72 +64,7 @@ app.use(function(err, req, res, next) {
 //   });
 // });
 
-var http = require('http');
-var server = http.createServer();
-
-var url = require('url')
-  , WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ path: "/hello", server: server })
-
-wss.on('connection', function connection(ws) {
-  var location = url.parse(ws.upgradeReq.url, true);
-  // you might use location.query.access_token to authenticate or share sessions
-  // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-    ws.send(message, {mask: true});
-  });
-  ws.send("Welcome");
-});
-
-
-
-var url = require('url')
-  , WebSocketServer = require('ws').Server
-  , wss2 = new WebSocketServer({ path: "/hello2", server: server })
-
-wss2.on('connection', function connection(ws) {
-  var location = url.parse(ws.upgradeReq.url, true);
-  // you might use location.query.access_token to authenticate or share sessions
-  // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-
-  ws.on('message', function incoming(message) {
-    console.log('Websocket received: %s', message);
-    ws.send(message, {mask: true});
-  });
-  ws.send("Welcome");
-});
-server.listen(8080, function () { console.log('Websockets listening on ' + server.address().port) });
-
-
-var socketio = require('socket.io');
-var server1 = http.createServer();
-
-socketio.listen(server1).on('connection', function (socket) {
-  socket.on('message', function (msg) {
-    console.log('Socket IO Message Received: ', msg);
-    setTimeout(function(){
-      socket.emit('message', msg);
-    }, 1000)
-
-  });
-  socket.emit("message", "welcome");
-});
-
-server1.listen(8081, function () { console.log('SocketIO listening on ' + server1.address().port) });
-
-var WebSocket = require('ws');
-
-var ws = new WebSocket('ws://localhost:8080/hello', 'borf');
- var util = require('util')
-ws.addListener('data', function(buf) {
-  console.log('Client Got data: ' + util.inspect(buf.data));
-});
-ws.onmessage = function(m) {
-  console.log('Client Got message: ' + util.inspect(m.data));
-}
-ws.addEventListener('open', function(event) {
-  ws.send("ejiejie");
-});
+require('./mywebsockets.js');
+require('./mysocket-io.js');
+require('./mywebsocket-client.js');
 module.exports = app;
