@@ -7,6 +7,6 @@ module.exports = function (io) { // io stuff here... io.on('conection..... }
       }, 1000)
 
     });
-    socket.emit("message", "welcome");
+    // socket.emit("message", "welcome");
   });
 }

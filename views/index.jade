@@ -24,8 +24,8 @@ block content
     appendMessage("socketio", "connecting");
     iosocket.on('connect', function () {
       appendMessage("socketio", "connected")
-      appendMessage("socketio", "sending message -> "+message1);
-      iosocket.emit("message", message1);
+      //- appendMessage("socketio", "sending message -> "+message1);
+      //- iosocket.emit("message", message1);
     });
 
     iosocket.on('message', function(message) {
