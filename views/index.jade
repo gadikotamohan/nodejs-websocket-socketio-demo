@@ -7,7 +7,8 @@ block content
   //- ul#hello
   h1 SocketIO
   ul#socketio
-
+  input(type="text" name="message", id="message")
+  button#send Send message
   script.
     var appendMessage = function(parentElementID, message){
       var parentElement = document.getElementById(parentElementID)
@@ -67,3 +68,13 @@ block content
     //-   appendMessage("socketio", "closing");
     //-   iosocket.close();
     //- }, 10000);
+    var button = document.getElementById("send");
+    button.addEventListener("click", function(event){
+      var message = document.getElementById("message");
+      appendMessage("socketio", "sending message -> "+message.value);
+      iosocket.emit("message", message.value);
+      if(!iosocket.connected){
+        appendMessage("socketio", "reconnecting to server");
+        iosocket.connect();
+      }
+    })
