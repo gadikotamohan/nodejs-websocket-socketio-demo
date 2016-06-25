@@ -12,7 +12,16 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
+
+if (typeof(PhusionPassenger) != 'undefined') {
+  PhusionPassenger.configure({ autoInstall: false });
+}
+
 var port = normalizePort(process.env.PORT || '3000');
+if (typeof(PhusionPassenger) !== 'undefined') {
+  port = 'passenger';
+}
+
 app.set('port', port);
 
 /**
@@ -88,3 +97,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+var io = require('socket.io').listen(server);
+require('../sockets/base')(io);
+// require('../mywebsockets.js')(server);

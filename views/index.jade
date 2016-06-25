@@ -3,8 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  h1 Hello
-  ul#hello
+  //- h1 Hello
+  //- ul#hello
   h1 SocketIO
   ul#socketio
 
@@ -16,7 +16,7 @@ block content
       parentElement.appendChild(childElement);
     }
 
-    var iosocket = io.connect("http://0.0.0.0:8081");
+    var iosocket = io.connect();
     var message1 = "websocket";
     var message2 = "socketio";
 
@@ -37,33 +37,33 @@ block content
     });
 
 
-    var connection = new WebSocket('ws://0.0.0.0:8080/hello', ['soap', 'xmpp']);
-    appendMessage("hello", "connecting");
-    connection.onopen = function () {
-      appendMessage("hello", "connected");
-      appendMessage("hello", "sending message -> "+message1);
-      connection.send(message1);
-    };
+    //- var connection = new WebSocket('ws://0.0.0.0:3000/hello', ['soap', 'xmpp']);
+    //- appendMessage("hello", "connecting");
+    //- connection.onopen = function () {
+    //-   appendMessage("hello", "connected");
+    //-   appendMessage("hello", "sending message -> "+message1);
+    //-   connection.send(message1);
+    //- };
 
-    // Log errors
-    connection.onerror = function (error) {
-      appendMessage("hello", 'WebSocket Error ' + error);
-    };
+    //- // Log errors
+    //- connection.onerror = function (error) {
+    //-   appendMessage("hello", 'WebSocket Error ' + error);
+    //- };
 
-    // Log messages from the server
-    connection.onmessage = function (e) {
-      appendMessage("hello", "Received --> "+e.data);
-    };
+    //- // Log messages from the server
+    //- connection.onmessage = function (e) {
+    //-   appendMessage("hello", "Received --> "+e.data);
+    //- };
 
-    connection.onclose = function(){
-      appendMessage("hello", "closed");
-    };
+    //- connection.onclose = function(){
+    //-   appendMessage("hello", "closed");
+    //- };
 
-    setTimeout(function(){
-      appendMessage("hello", "closing");
-      connection.close();
-    }, 10000);
-    setTimeout(function(){
-      appendMessage("socketio", "closing");
-      iosocket.close();
-    }, 10000);
+    //- setTimeout(function(){
+    //-   appendMessage("hello", "closing");
+    //-   connection.close();
+    //- }, 10000);
+    //- setTimeout(function(){
+    //-   appendMessage("socketio", "closing");
+    //-   iosocket.close();
+    //- }, 10000);

@@ -64,7 +64,6 @@ app.use(function(err, req, res, next) {
 //   });
 // });
 
-require('./mywebsockets.js');
-require('./mysocket-io.js');
-require('./mywebsocket-client.js');
+
+// require('./mywebsocket-client.js');
 module.exports = app;
