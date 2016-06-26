@@ -100,4 +100,7 @@ function onListening() {
 
 var io = require('socket.io').listen(server);
 require('../sockets/base')(io);
+if( process.env.ARI_USER &&  process.env.ARI_PASSWD &&  process.env.ARI_PORT &&  process.env.ARI_URI){
+  require('../ari-ws-client/ari-ws')(app, process.env.URI, process.env.PORT, process.env.USER, process.env.PASSWD);
+}
 // require('../mywebsockets.js')(server);

@@ -5,7 +5,7 @@ module.exports = function (shipit) {
     default: {
       workspace: '/tmp/github-monitor',
       deployTo: '/home/deploy/node-apps',
-      repositoryUrl: 'https://github.com/gadikotamohan/nodejs-websocket-socketio-demo.git',
+      repositoryUrl: 'git@bitbucket.org:GTechWork/node.git',
       ignores: ['.git', 'node_modules'],
       rsync: ['--del'],
       keepReleases: 2,
